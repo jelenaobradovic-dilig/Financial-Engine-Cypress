@@ -1,0 +1,29 @@
+{
+
+  "emailExistingAdminRoleUser": "automationadmin@yopmail.com",
+  "passwordExistingAdminRoleUser": "123456",
+
+  "emailExistingUserRole": "automationuser@yopmail.com",
+  "passwordExistingUserRole": "123456",
+
+  "emailExistingAdminAndUserRole": "automationadminanduser@yopmail.com",
+  "passwordExistingAdminAndUserRole": "123456",
+
+
+
+  "logInUrl": "https://financials-test.dilig.net/#/sign-in",
+  "afterLogInUrlForUser":"https://financials-test.dilig.net/#/dashboard",
+  "afterLogInUrlForAdmin":"https://financials-test.dilig.net/#/dashboard",
+        
+  "validationPageUrl": "https://financials-test.dilig.net/#/validate-registration",
+
+  "accountCost1":"COS10_Automation_Test_2022_25",
+  "accountCost2":"COS10_Automation_Test_2022_26",
+  "accountEmployee1":"EMP3_Automation_Test_2022_15",
+  "accountEmployee2":"EMP3_Automation_Test_2022_16",
+  "accountPayroll":"PAY5_Automation_Test_2022_95", 
+  "eventType1":"BankingActivitySubmitted",
+  "eventType2":"PayrollSubmitted",
+  "accountType1":"BankingActivity",
+  "accounttype2":"Payroll"
+}
