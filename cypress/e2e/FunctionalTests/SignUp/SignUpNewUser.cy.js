@@ -22,19 +22,23 @@ describe('Register new user', () => {
 
         //cy.writeFile('cypress/fixtures/randomData.json', { randomEmail: SignUpPage.generateRandomEmail(), randomPassword: SignUpPage.generateRandomPassword() })
 
-        // cy.fixture('randomData').then(function (info) {
-        //     randomData = info
+        //ako write ide u samom it ne u before, on ucita neke podatke od prosli put, ili ako
+        //pre testa izbrisem podatke, a u samom testu ide write, pada test jer upisuje taj prazan string ucitan u before hook
+        //uopste ne vidi write u testu
+        //a ako imam write u before hook onda pada test u drugom it
+        //jer ucita podatke koriscene u prvom it generisane u before hook
+        //cak iako stavim u beforeEach, uvek koristi prve generisane podatke za typr...ako pokusam read, procita ih ok, ali za type koristi prve
 
-        // })
+    
 
         cy.fixture('fixData').then(function (info) {
             fixData = info
         })
 
-        // cy.fixture('randomData').then(function (info) {
-        //     randomData = info
+        cy.fixture('randomData').then(function (info) {
+            randomData = info
 
-        // })
+        })
 
 
 
@@ -44,16 +48,29 @@ describe('Register new user', () => {
     it('Sign Up from Register page', () => {
 
         cy.writeFile('cypress/randomData/randomData.json', { randomEmail: SignUpPage.generateRandomEmail(), randomPassword: SignUpPage.generateRandomPassword() }).then(function (rd) {
-            cy.readFile('cypress/randomData/randomData.json').then(function (rd) {
-                cy.log(rd)
-                SignUpPage.visitSignUpPage()
-                SignUpPage.typeNewUserRegistrationData(randomData.randomEmail, randomData.randomPassword)
-                SignUpPage.getRegisterButton().click()
-                SignUpPage.getSucessfullRegistrationMessage().should('have.text', 'You succesfully created an account. ')
-                SignUpPage.getValidationPageUrl().should('eq', fixData.validationPageUrl)
-                SignUpPage.getLoginButtonFromValidationPage().click()
-                cy.url().should('eq', fixData.logInUrl)
+            // cy.readFile('cypress/randomData/randomData.json').then(function (rd) {
+            //     cy.log(rd)
+            //     SignUpPage.visitSignUpPage()
+            //     SignUpPage.typeNewUserRegistrationData(randomData.randomEmail, randomData.randomPassword)
+            //     SignUpPage.getRegisterButton().click()
+            //     SignUpPage.getSucessfullRegistrationMessage().should('have.text', 'You succesfully created an account. ')
+            //     SignUpPage.getValidationPageUrl().should('eq', fixData.validationPageUrl)
+            //     SignUpPage.getLoginButtonFromValidationPage().click()
+            //     cy.url().should('eq', fixData.logInUrl)
 
+            // }) ne moze read i neki drugi fajl koji nije u fixtures, jer iz drugih fajlova ne mozemo da pozivamo podatke sa randomdata.nekinaziv
+
+            //ovde pokusavam da opet ucitam fixture, posle hook, ali opet ne radi za drugi test
+
+            cy.fixture('randomData.json').then(function (rd) {
+                    cy.log(rd)
+                    SignUpPage.visitSignUpPage()
+                    SignUpPage.typeNewUserRegistrationData(randomData.randomEmail, randomData.randomPassword)
+                    SignUpPage.getRegisterButton().click()
+                    SignUpPage.getSucessfullRegistrationMessage().should('have.text', 'You succesfully created an account. ')
+                    SignUpPage.getValidationPageUrl().should('eq', fixData.validationPageUrl)
+                    SignUpPage.getLoginButtonFromValidationPage().click()
+                    cy.url().should('eq', fixData.logInUrl)
             })
 
 
@@ -105,7 +122,6 @@ describe('Register new user', () => {
 
         UserManagementPage.getSubmitButtonFromCreateUser().should('be.visible')
 
-        //cy.writeFile('cypress/fixtures/randomData.json', { randomEmail: SignUpPage.generateRandomEmail(), randomPassword: SignUpPage.generateRandomPassword() })
 
         cy.writeFile('cypress/randomData/randomData.json', { randomEmail: SignUpPage.generateRandomEmail(), randomPassword: SignUpPage.generateRandomPassword() }).then(function (rd) {
 
