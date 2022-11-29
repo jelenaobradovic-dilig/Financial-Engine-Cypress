@@ -20,7 +20,7 @@ describe('Register new user', () => {
 
         cy.clearCookies()
 
-        //cy.writeFile('cypress/fixtures/randomData.json', { randomEmail: SignUpPage.generateRandomEmail(), randomPassword: SignUpPage.generateRandomPassword() })
+        cy.writeFile('randomData.json', { randomEmail: SignUpPage.generateRandomEmail(), randomPassword: SignUpPage.generateRandomPassword() })
 
         //ako write ide u samom it ne u before, on ucita neke podatke od prosli put, ili ako
         //pre testa izbrisem podatke, a u samom testu ide write, pada test jer upisuje taj prazan string ucitan u before hook
