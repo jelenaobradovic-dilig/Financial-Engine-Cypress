@@ -74,8 +74,8 @@ class SignUp {
    static generateRandomEmail() {
       let randomString = uuidv4()
       let shortenString = randomString.slice(0, 10)
-      let number = "1"
-      let randomEmail = number.concat(shortenString).concat("@yopmail.com")
+      
+      let randomEmail = shortenString.concat("@yopmail.com")
       return randomEmail
    }
 
@@ -88,8 +88,8 @@ class SignUp {
 
    static typeNewUserRegistrationData(email, password) {
 
-      this.typeFirstName("TestName")
-      this.typeLastName("TestLastName")
+      this.typeFirstName("A_Test_Name")
+      this.typeLastName("A_Test_LastName")
       this.typeEmail(email)
       this.typePassword(password)
       this.typeRePassword(password)

@@ -39,6 +39,41 @@ describe('Edit Account Type ', () => {
     })
 
 
+
+    it('Edit Target requred checkbox', () => {
+
+
+        //     LogInPage.visitLogInPage()
+        //     LogInPage.findDiligentSplashScreen().should('not.exist')
+        //     LogInPage.logInUserWithAdminRole(fixData.emailExistingAdminAndUserRole, fixData.passwordExistingAdminAndUserRole )
+        //     MainMenuPage.getAccountTypesLink().click()
+        //     cy.wait(2000)
+        //     AccountTypes.clickOnEditAccountTypeButtonByCaption('Invoice')
+        //    // AccountTypes.findTargetCheckbox().check()
+        //     AccountTypes.findSaveButton().click()
+        //     MainMenuPage.findAccountsLink().click()
+        //     AccountsPage.getAddNewAccountButton().click({ force: true })
+        //     AccountsPage.getAccountTypeSelectFromAddNewAccount().select("Invoice")
+        //     AccountsPage.getPropertyKeySelectFromAddNewAccount().select('New property')
+        //     AccountsPage.getPropertyValueInput().type('123')
+        //     AccountsPage.getTargetAccountFieldsFromAddNewAccount().should('be.visible')
+    
+        //     AccountsPage.getAccountTypesSelect().select("Invoice")
+    
+    
+    
+    
+    
+        })
+
+
+
+        it('Edit Caption field', () => {
+
+
+        })
+
+
     it('Edit Description and Property of Account Type', () => {
 
 
@@ -62,29 +97,11 @@ describe('Edit Account Type ', () => {
 
     })
 
-    it('Set Target required of Account Type to checked', () => {
+    it('Delete Description and Property of Account Type', () => {
 
+    })
 
-    //     LogInPage.visitLogInPage()
-    //     LogInPage.findDiligentSplashScreen().should('not.exist')
-    //     LogInPage.logInUserWithAdminRole(fixData.emailExistingAdminAndUserRole, fixData.passwordExistingAdminAndUserRole )
-    //     MainMenuPage.getAccountTypesLink().click()
-    //     cy.wait(2000)
-    //     AccountTypes.clickOnEditAccountTypeButtonByCaption('Invoice')
-    //    // AccountTypes.findTargetCheckbox().check()
-    //     AccountTypes.findSaveButton().click()
-    //     MainMenuPage.findAccountsLink().click()
-    //     AccountsPage.getAddNewAccountButton().click({ force: true })
-    //     AccountsPage.getAccountTypeSelectFromAddNewAccount().select("Invoice")
-    //     AccountsPage.getPropertyKeySelectFromAddNewAccount().select('New property')
-    //     AccountsPage.getPropertyValueInput().type('123')
-    //     AccountsPage.getTargetAccountFieldsFromAddNewAccount().should('be.visible')
-
-    //     AccountsPage.getAccountTypesSelect().select("Invoice")
-
-
-
-
+    it('Edit Caption field to be same as Caption of some Existing Account type', () => {
 
     })
 

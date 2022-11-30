@@ -45,7 +45,7 @@ describe('Register new user', () => {
     })
 
 
-    it('Sign Up from Register page', () => {
+    it('Register new user from Sign-up page', () => {
 
         cy.writeFile('cypress/randomData/randomData.json', { randomEmail: SignUpPage.generateRandomEmail(), randomPassword: SignUpPage.generateRandomPassword() }).then(function (rd) {
             // cy.readFile('cypress/randomData/randomData.json').then(function (rd) {

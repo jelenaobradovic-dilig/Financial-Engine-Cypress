@@ -59,7 +59,7 @@ describe('Create New Account', () => {
     })
 
 
-    it('Create Account trough Account page', () => {
+    it('Create Account trough Account page, Create new Account  with valid data and random Account type', () => {
 
         LogInPage.visitLogInPage()
         LogInPage.logInUserWithUserRole(fixData.emailExistingUserRole, fixData.passwordExistingUserRole)
@@ -104,14 +104,16 @@ describe('Create New Account', () => {
         cy.wait(1000)
 
         AccountsPage.getAccountInputAtSearch().type(randomData.randomReferenceCode, { force: true }) //BUG GDE SE BLOKIRA DIALOG
-        AccountsPage.getSearchButton().click({ force: true })// BUG GDE NE POSTOJE TRENUTNO DUGMAD NA TOJ STRANICI
+        AccountsPage.getSearchButton().click({ force: true })// BUG GDE SE BLOKIRA DIJALOG
         MainMenuPage.getSpinner().should('not.be.visible')
         AccountsPage.getAccountsTdFromTable().should('not.exist')
 
 
     })
 
+    it('Create Account trough Account page, Create new Account  with valid data and specific Account type which require targeting', () => {
 
+    })
 
     it('Create Account trough Submit Event page', () => {
 

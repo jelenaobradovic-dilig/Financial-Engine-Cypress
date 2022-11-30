@@ -12,7 +12,7 @@ class AccountTypes {
 
     static generateRandomAccountTypeCaption() {
         let randomString = uuidv4().slice(0, 10)
-        let randomAccountTypeCaption = ("Test").concat(randomString)
+        let randomAccountTypeCaption = ("A_Test").concat(randomString)
         return randomAccountTypeCaption
     }
 
