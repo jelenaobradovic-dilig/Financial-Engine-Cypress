@@ -9,8 +9,7 @@ class AccountsPage {
 
     }
 
-    static getAcountTypesSelectAtSearch()
-    {
+    static getAcountTypesSelectAtSearch() {
         return cy.xpath("//div[@class='card-body']/div[1]/div[1]/div[1]//select")
     }
 
@@ -18,13 +17,11 @@ class AccountsPage {
         return cy.xpath("//div[@class='container']//select[@name='accountTypeId']")
     }
 
-    static getSearchButton()
-    {
+    static getSearchButton() {
         return cy.xpath("//div[@class='mt-3']//button[contains(text(),'Search')]")
     }
 
-    static getAccountsTdFromTable()
-    {
+    static getAccountsTdFromTable() {
         return cy.xpath("//accounts[1]/div[2]/table[1]/tbody[1]/tr/td[4]")
     }
 
@@ -52,13 +49,11 @@ class AccountsPage {
         return cy.xpath("//button[@title='Add']")
     }
 
-    static getRemoveButtonForOneAccountAfterSEarch()
-    {
+    static getRemoveButtonForOneAccountAfterSEarch() {
         return cy.xpath("//button[@title='Remove Account']")
     }
 
-    static getDeleteButtonAtConfirmDialog()
-    {
+    static getDeleteButtonAtConfirmDialog() {
         return cy.xpath("//cmp-confirm-dialog//button[contains(text(),'Delete')]")
     }
 
@@ -90,6 +85,12 @@ class AccountsPage {
 
     }
 
+    static getTableInfoTextWithNumberOfAccounts() {
+
+        return cy.xpath("/html[1]/body[1]/app-root[1]/div[1]/div[1]/div[1]/div[1]/accounts[1]/div[2]/div[2]")
+
+    }
+
     static compareNumberOfAccountsBeforeAndAfterCreateAcount(numberBefore) {
 
         cy.xpath("/html[1]/body[1]/app-root[1]/div[1]/div[1]/div[1]/div[1]/accounts[1]/div[2]/div[2]").should($newNumber => {
@@ -98,10 +99,8 @@ class AccountsPage {
 
     }
 
-    static getPopUpMessage()
-    
-    {return cy.get('.ng-trigger > .ng-tns-c31-3')}
-        //cy.xpath("//div[@role='alert']")}
+    static getPopUpMessage() { return cy.get('.ng-trigger > .ng-tns-c31-3') }
+    //cy.xpath("//div[@role='alert']")}
 
     static getSubmitButtonAtCReateNewAccount() {
         return cy.xpath("//div[@class='container']//button[@type='submit']")
@@ -113,8 +112,7 @@ class AccountsPage {
     }
 
 
-    static createNewAccount(accountType,randomReferenceCode)
-    {
+    static createNewAccount(accountType, randomReferenceCode) {
         MainMenuPage.getSubAccountsLink().click()
         MainMenuPage.getSpinner().should('not.be.visible')
         AccountsPage.getAddNewAccountButton().click({ force: true })
@@ -125,8 +123,7 @@ class AccountsPage {
         MainMenuPage.getSpinner().should('not.be.visible')
     }
 
-    static getAccountCaptionTd()
-    {return cy.xpath("//accounts[1]/div[2]/table[1]/tbody[1]/tr/td[4]")}
+    static getAccountCaptionTd() { return cy.xpath("//accounts[1]/div[2]/table[1]/tbody[1]/tr/td[4]") }
 
 }
 
