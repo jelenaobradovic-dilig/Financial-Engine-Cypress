@@ -27,14 +27,6 @@ describe('Create New Account', () => {
         cy.clearCookies()
 
 
-        cy.writeFile('cypress/fixtures/randomData.json', {
-            randomAccountNote: uuidv4().slice(0, 8).concat('A_Test'),
-            randomReferenceCode: uuidv4().slice(0, 8).concat("A_Test"),
-            randomEventNote: uuidv4().slice(0, 8).concat("A_Test"),
-            randomAmount: (Math.floor(Math.random() * (10000 - 1 + 1)) + 1)
-        })
-
-
         cy.fixture('fixData').then(function (info) {
             fixData = info
 
@@ -59,33 +51,37 @@ describe('Create New Account', () => {
         MainMenuPage.getSubAccountsLink().click()
         MainMenuPage.getSpinner().should('not.be.visible')
 
+        let randomAccountNote = AccountsPage.generateRandomAccountNote()
+        let randomReferenceCode = AccountsPage.generateRandomreferenceCode()
+        let randomAmount = (Math.floor(Math.random() * (10000 - 1 + 1)) + 1)
+
         AccountsPage.getTableInfoTextWithNumberOfAccounts().then(($el) => {
 
             let numberOfAccountsBeforeCreateAction = $el.text().slice(19, -8)
             cy.log(numberOfAccountsBeforeCreateAction)
 
-            AccountsPage.getAddNewAccountButton().click({ force: true })
+            AccountsPage.getAddNewAccountButton().click()
             MainMenuPage.getSpinner().should('not.be.visible')
             AccountsPage.selectRandomAccountTypeAtAddNewAccount()
-            AccountsPage.getReferenceCodeAtAddNewAccount().type(randomData.randomReferenceCode)
+            AccountsPage.getReferenceCodeAtAddNewAccount().type(randomReferenceCode)
+            AccountsPage.getAccountNoteAtAddNewAccount().type(randomAccountNote)
             AccountsPage.getSubmitButtonAtCReateNewAccount().click()
-            MainMenuPage.getSpinner().should('not.be.visible')
-            AccountsPage.getPopUpMessage()
+            //MainMenuPage.getSpinner().should('not.be.visible') //ako cekamo da spinner ne bude vidljiv u medjuvremenu i pop up nestane
+            AccountsPage.getPopUpMessage().should ('be.visible').and('have.text',' Account created successfully ' ).click()
 
-            //******************Kada se prati test kroz konzolu u startu izvuce text za uporedjivanje i onda se naknadno izgubi i ostane " "
+            //*****************
             //AccountsPage.getPopUpMessage().should(($popUp) => {
-            // expect($popUp.text()).to.contain.text('Account created succesfully')
+            // expect($popUp.text()).to.contain.text('Account created successfully')
 
             //})
             //******************
 
-            MainMenuPage.getSpinner().should('not.be.visible')
             AccountsPage.compareNumberOfAccountsBeforeAndAfterCreateAcount(numberOfAccountsBeforeCreateAction)
-            AccountsPage.getAccountInputAtSearch().type(randomData.randomReferenceCode)
+            AccountsPage.getAccountInputAtSearch().type(randomReferenceCode)
             AccountsPage.getSearchButton().click()
             MainMenuPage.getSpinner().should('not.be.visible')
             AccountsPage.getAccountsTdFromTable().should('have.length', 1)
-            AccountsPage.getRemoveButtonForOneAccountAfterSEarch().click({ force: true })
+            AccountsPage.getRemoveButtons().should('have.length', 1).and('be.enabled').click()
             AccountsPage.getDeleteButtonAtConfirmDialog().should('be.visible').click()
             cy.wait(1000)
 
@@ -100,7 +96,7 @@ describe('Create New Account', () => {
             MainMenuPage.getSpinner().should('not.be.visible')
             cy.wait(1000)
 
-            AccountsPage.getAccountInputAtSearch().type(randomData.randomReferenceCode, { force: true }) //BUG GDE SE BLOKIRA DIALOG
+            AccountsPage.getAccountInputAtSearch().type(randomReferenceCode, { force: true }) //BUG GDE SE BLOKIRA DIALOG
             AccountsPage.getSearchButton().click({ force: true })// BUG GDE SE BLOKIRA DIJALOG
             MainMenuPage.getSpinner().should('not.be.visible')
             AccountsPage.getAccountsTdFromTable().should('not.exist')
@@ -125,6 +121,11 @@ describe('Create New Account', () => {
 
         MainMenuPage.getSpinner().should("not.be.visible")
 
+        let randomAccountNote = AccountsPage.generateRandomAccountNote()
+        let randomReferenceCode = AccountsPage.generateRandomreferenceCode()
+        let randomEventNote = AccountsPage.generateRandomEventNote()
+        let randomAmount = (Math.floor(Math.random() * (10000 - 1 + 1)) + 1)
+
         AccountsPage.getTableInfoTextWithNumberOfAccounts().then(($el) => {
 
             let numberOfAccountsBeforeSubmitAction = $el.text().slice(19, -8)
@@ -135,12 +136,12 @@ describe('Create New Account', () => {
             SubmitEvent.selectRandomDomain()
             SubmitEvent.selectRandomEventType()
             SubmitEvent.getSelectAccountType().should('be.disabled')
-            SubmitEvent.typeEventNote(randomData.randomEventNote)
+            SubmitEvent.typeEventNote(randomEventNote)
             SubmitEvent.selectAccountMethodByOption('New Account')
             SubmitEvent.getNewAccountSection().should('be.visible')
-            SubmitEvent.typeAmountAtNewAccount(randomData.randomAmount)
-            SubmitEvent.typeAccountNote(randomData.randomAccountNote)
-            SubmitEvent.getReferenceCodeInput().type(randomData.randomReferenceCode)
+            SubmitEvent.typeAmountAtNewAccount(randomAmount)
+            SubmitEvent.typeAccountNote(randomAccountNote)
+            SubmitEvent.getReferenceCodeInput().type(randomReferenceCode)
             SubmitEvent.getSubmitEventButton().click()
             cy.wait(20000) // time to create event and related events
 
@@ -148,12 +149,12 @@ describe('Create New Account', () => {
             MainMenuPage.getSpinner().should('not.be.visible')
             AccountsPage.compareNumberOfAccountsBeforeAndAfterCreateAcount(numberOfAccountsBeforeSubmitAction)
 
-            AccountsPage.getAccountInputAtSearch().type(randomData.randomReferenceCode)
+            AccountsPage.getAccountInputAtSearch().type(randomReferenceCode)
             AccountsPage.getSearchButton().click()
             MainMenuPage.getSpinner().should('not.be.visible')
             AccountsPage.getAccountsTdFromTable().should('have.length', 1)
 
-            //AccountsPage.getRemoveButtonForOneAccountAfterSEarch().should('be.disabled') //BUG GDE NE POSTOJE TRENUTNO DUGMAD NA TOJ STRANICI
+            AccountsPage.getRemoveButtons().should('have.length', 1).and('be.disabled')
 
         })
 
