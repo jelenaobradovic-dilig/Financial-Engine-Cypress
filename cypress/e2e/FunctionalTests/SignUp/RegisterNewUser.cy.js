@@ -20,8 +20,6 @@ describe('Register new user', () => {
 
         cy.clearCookies()
 
-        // cy.writeFile('cypress/fixtures/randomData.json', { randomEmail: SignUpPage.generateRandomEmail(), randomPassword: SignUpPage.generateRandomPassword() })
-
 
         cy.fixture('fixData').then(function (info) {
             fixData = info
@@ -48,11 +46,12 @@ describe('Register new user', () => {
         SignUpPage.getSucessfullRegistrationMessage().should('have.text', 'You succesfully created an account. ')
         SignUpPage.getValidationPageUrl().should('eq', fixData.validationPageUrl)
         SignUpPage.getLoginButtonFromValidationPage().click()
+        MainMenuPage.getSpinner().should('not.be.visible')
         cy.url().should('eq', fixData.logInUrl)
 
         LogInPage.logInUserWithAdminRole(fixData.emailExistingAdminRoleUser, fixData.passwordExistingAdminRoleUser)
-
-        MainMenuPage.getUserManagementlink().click()
+        MainMenuPage.getSpinner().should('not.be.visible')
+        MainMenuPage.getUserManagementlink().should('be.visible').click()
         MainMenuPage.getSpinner().should('not.be.visible')
         UserManagementPage.getEmailInputFromSearch().type(randomEmail)
         UserManagementPage.getSearchButtonFromSearch().click()
@@ -65,11 +64,13 @@ describe('Register new user', () => {
         UserManagementPage.getAdminRoleCheckbox().should('not.be.checked')
         UserManagementPage.getUserRoleCheckbox().should('be.checked')
         UserManagementPage.getSubmitButtonFromEditUser().click()
+        MainMenuPage.getSpinner().should('not.be.visible')
+
         UserManagementPage.getPopUpMessage()
+            .should('be.visible').and('have.text', ' User updated successfully ').click()
+        UserManagementPage.getPopUpMessage().should('not.exist')
 
-        //.should('be.visible').and('have.text',' User updated successfully ')
-
-        MainMenuPage.getUserIconButton().click({ force: true })
+        MainMenuPage.getUserIconButton().click()
         MainMenuPage.getLogoutButton().click()
         cy.url().should('eq', fixData.logInUrl)
 
@@ -87,36 +88,24 @@ describe('Register new user', () => {
         let randomPassword = SignUpPage.generateRandomPassword()
 
         LogInPage.visitLogInPage()
-
         LogInPage.logInUserWithAdminRole(fixData.emailExistingAdminRoleUser, fixData.passwordExistingAdminRoleUser)
 
         MainMenuPage.getUserManagementlink().should('be.visible').click()
-
         MainMenuPage.getSpinner().should('not.be.visible')
-
         UserManagementPage.getAddButton().click()
-
-        UserManagementPage.getSubmitButtonFromCreateUser().should('be.visible')
-
-
-
+        MainMenuPage.getSpinner().should('not.be.visible')
         UserManagementPage.typeNewUserRegistrationData(randomEmail, randomPassword)
-
         UserManagementPage.getSubmitButtonFromCreateUser().click()
         MainMenuPage.getSpinner().should('not.be.visible')
 
         UserManagementPage.getPopUpMessage()
-            .should('have.text', ' User created successfully ')
+            .should('be.visible').and('have.text', ' User created successfully ').click()
+        UserManagementPage.getPopUpMessage().should('not.exist')
 
         UserManagementPage.getEmailInputFromSearch().type(randomEmail)
-
         UserManagementPage.getSearchButtonFromSearch().click()
-
         MainMenuPage.getSpinner().should('not.be.visible')
         cy.wait(1000)
-
-
-
 
         UserManagementPage.getEditButton().should('have.length', 1).and('be.visible').and('be.enabled').click()
         UserManagementPage.getEmailConfirmationCheckbox().should('not.be.checked').check()
@@ -126,10 +115,13 @@ describe('Register new user', () => {
         UserManagementPage.getSubmitButtonFromEditUser().click()
         MainMenuPage.getSpinner().should('not.be.visible')
 
-        UserManagementPage.getPopUpMessage().should('be.visible').and('have.text', ' User updated successfully ')
+        UserManagementPage.getPopUpMessage()
+            .should('be.visible').and('have.text', ' User updated successfully ').click()
+        UserManagementPage.getPopUpMessage().should('not.exist')
 
-        MainMenuPage.getUserIconButton().click({ force: true })
+        MainMenuPage.getUserIconButton().click()
         MainMenuPage.getLogoutButton().click()
+
         cy.url().should('eq', fixData.logInUrl)
         MainMenuPage.getSpinner().should('not.be.visible')
         LogInPage.logInUserWithUserRole(randomEmail, randomPassword)
