@@ -67,7 +67,7 @@ describe('Create New Account', () => {
             AccountsPage.getAccountNoteAtAddNewAccount().type(randomAccountNote)
             AccountsPage.getSubmitButtonAtCReateNewAccount().click()
             //MainMenuPage.getSpinner().should('not.be.visible') //ako cekamo da spinner ne bude vidljiv u medjuvremenu i pop up nestane
-            AccountsPage.getPopUpMessage().should ('be.visible').and('have.text',' Account created successfully ' ).click()
+            AccountsPage.getPopUpMessage().should('be.visible').and('have.text', ' Account created successfully ').click()
 
             //*****************
             //AccountsPage.getPopUpMessage().should(($popUp) => {
@@ -83,16 +83,13 @@ describe('Create New Account', () => {
             AccountsPage.getAccountsTdFromTable().should('have.length', 1)
             AccountsPage.getRemoveButtons().should('have.length', 1).and('be.enabled').click()
             AccountsPage.getDeleteButtonAtConfirmDialog().should('be.visible').click()
+            AccountsPage.getPopUpMessage().should('be.visible').and('have.text', ' Account removed successfully ').click()
+            AccountsPage.getPopUpMessage().should('not.exist')
             cy.wait(1000)
 
             MainMenuPage.getSpinner().should('not.be.visible')
             cy.wait(1000)
-
-            MainMenuPage.getSpinner().should('not.be.visible')
-            cy.wait(1000)
-
             //BUG GDE SE BLOKIRA DIALOG zato je force type za polja ispod dijaloga u sledecem koraku
-
             MainMenuPage.getSpinner().should('not.be.visible')
             cy.wait(1000)
 
@@ -143,6 +140,9 @@ describe('Create New Account', () => {
             SubmitEvent.typeAccountNote(randomAccountNote)
             SubmitEvent.getReferenceCodeInput().type(randomReferenceCode)
             SubmitEvent.getSubmitEventButton().click()
+            MainMenuPage.getSpinner().should('not.be.visible')
+            SubmitEvent.getPopUpMessage().should('be.visible').and('have.text', ' Event created successfully ').click()
+
             cy.wait(20000) // time to create event and related events
 
             MainMenuPage.getSubAccountsLink().click()

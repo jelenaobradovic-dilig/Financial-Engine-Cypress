@@ -131,6 +131,11 @@ class SubmitEvent {
         return cy.xpath("//input[@formcontrolname='Caption']")
     }
 
+    static getPopUpMessage()
+    {
+        return cy.xpath("//*[@class='overlay-container']/div/div/div")
+    }
+
 }
 
 module.exports = SubmitEvent
