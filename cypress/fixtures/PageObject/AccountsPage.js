@@ -36,7 +36,12 @@ class AccountsPage {
     }
 
     static getAccountTypesSelectAtAddNewAccount() {
-        return cy.xpath("//div[@class='container']//select[@name='accountTypeId']")
+        return cy.xpath("//cmp-account-dialog[1]/div[1]/div[1]/div[2]/form[1]/div[1]/div[1]/div[1]/div[1]/div[1]/select[1]")
+    }
+
+    static getTargetAccountTypeAtAddNewAccount()
+    {
+        return cy.xpath("//cmp-account-dialog[1]//cmp-target-account[1]/table[1]/tfoot[1]/tr[1]/td[1]/select[1]")
     }
 
     static getSearchButton() {

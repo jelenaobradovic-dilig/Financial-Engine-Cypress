@@ -141,7 +141,7 @@ describe('Create New Account', () => {
             SubmitEvent.getReferenceCodeInput().type(randomReferenceCode)
             SubmitEvent.getSubmitEventButton().click()
             MainMenuPage.getSpinner().should('not.be.visible')
-            SubmitEvent.getPopUpMessage().should('be.visible').and('have.text', ' Event created successfully ').click()
+            SubmitEvent.getPopUpMessage().should('be.visible').and('have.text', ' Event created sucessfully ').click()
 
             cy.wait(20000) // time to create event and related events
 

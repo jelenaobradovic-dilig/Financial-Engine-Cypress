@@ -50,7 +50,11 @@ class SubmitEvent {
 
 
     static getSelectAccountType() {
-        return cy.xpath("//select[@name='accountTypeId']")
+        return cy.xpath("//cmp-create-account[1]/div[1]//select[@formcontrolname='AccountTypeId']")
+    }
+
+    static getSelectTargetAccountTYpe() {
+        return cy.xpath("//cmp-target-account[1]/table[1]/tfoot[1]/tr[1]/td[1]/select[1]")
     }
 
     static getEventNote() {
@@ -131,8 +135,7 @@ class SubmitEvent {
         return cy.xpath("//input[@formcontrolname='Caption']")
     }
 
-    static getPopUpMessage()
-    {
+    static getPopUpMessage() {
         return cy.xpath("//*[@class='overlay-container']/div/div/div")
     }
 
