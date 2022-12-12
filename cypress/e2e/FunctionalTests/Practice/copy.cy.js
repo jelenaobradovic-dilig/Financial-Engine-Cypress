@@ -28,8 +28,6 @@ describe('example to-do app', () => {
 
         cy.clearCookies()
 
-        cy.writeFile('randomData.json', { randomEmail: SignUpPage.generateRandomEmail(), randomPassword: SignUpPage.generateRandomPassword() })
-
 
         cy.fixture('randomData.json').then(function (info) {
             randomData = info
@@ -47,36 +45,48 @@ describe('example to-do app', () => {
     it('practice', () => {
 
 
-        SignUpPage.visitSignUpPage()
-        SignUpPage.typeNewUserRegistrationData(randomData.randomEmail, randomData.randomPassword)
-        //SignUpPage.getRegisterButton().click()
-       // SignUpPage.getSucessfullRegistrationMessage().should('have.text', 'You succesfully created an account. ')
-      //  SignUpPage.getValidationPageUrl().should('eq', fixData.validationPageUrl)
-     //   SignUpPage.getLoginButtonFromValidationPage().click()
-      //  cy.url().should('eq', fixData.logInUrl)
+        LogInPage.visitLogInPage()
+        LogInPage.findDiligentSplashScreen().should('not.exist')
+        LogInPage.logInUserWithUserRole(fixData.emailExistingUserRole, fixData.passwordExistingUserRole)
+        LogInPage.getAfterLogInSpinner().should('not.be.visible')
+    
+        MainMenuPage.getSubEventsLink().click()
+        MainMenuPage.getSpinner().should('not.be.visible')
+    
+        cy.xpath("//*[@class='dataTables_info']").then(($el) => {
+            let text = $el.text().slice(19, -8)
+            cy.log(text)
+            MainMenuPage.getSubmitEventLink().should('be.visible').click()
+            SubmitEvent.selectRandomDomain()
+            SubmitEvent.getSelectEventType().select('BankingActivitySubmitted')
+            SubmitEvent.getSelectAccountType().should('be.disabled')
+            SubmitEvent.typeEventNote(randomData.randomEventNote)
+            SubmitEvent.selectAccountMethodByOption('New Account')
+            SubmitEvent.getNewAccountSection().should('be.visible')
+        
+            SubmitEvent.typeInvalidAmountAtNewAccount()
+            SubmitEvent.getInvalidAmountFormatErrorMessage().should('have.text', 'Invalid number format.')
+            SubmitEvent.getAmountAtNewAccount().clear()
+            SubmitEvent.typeAmountAtNewAccount(randomData.randomAmount)
+            SubmitEvent.typeAccountNote(randomData.randomAccountNote)
+        
+            SubmitEvent.getSubmitEventButton().click()
+            
+            MainMenuPage.getSpinner().should('not.be.visible')
+            cy.wait(20000)  //Time to create event and related events.
+        
+            MainMenuPage.getSubEventsLink().click()
+            MainMenuPage.getSpinner().should('not.be.visible')
+            EventsPage.compareNumberOfEvents(text, '2')
 
-
+        })
+    
 
 
     })
 
     it('practice', () => {
 
-
-        SignUpPage.visitSignUpPage()
-
-
-            //cy.writeFile('randomData', { randomEmail: SignUpPage.generateRandomEmail(), randomPassword: SignUpPage.generateRandomPassword() }).then(function (yyy) {
-                
-            cy.readFile('cypress/fixtures/randomData.json').then(function(x){
-            cy.log(x)
-            let yyy = x
-            SignUpPage.typeNewUserRegistrationData(yyy.randomEmail)
-            //SignUpPage.getRegisterButton().click()
-            SignUpPage.getSucessfullRegistrationMessage().should('have.text', 'You succesfully created an account. ')
-            SignUpPage.getValidationPageUrl().should('eq', fixData.validationPageUrl)
-            SignUpPage.getLoginButtonFromValidationPage().click()
-            cy.url().should('eq', fixData.logInUrl)
 
             })
        
@@ -93,4 +103,3 @@ describe('example to-do app', () => {
 
 
 
-})
