@@ -1,7 +1,29 @@
 const MainMenuPage = require("C:/Users/jelena.obradovic/Desktop/Financial Engine Cypress/cypress/fixtures/PageObject/MainMenuPage.js")
 const LogInPage = require("C:/Users/jelena.obradovic/Desktop/Financial Engine Cypress/cypress/fixtures/PageObject/LogInPage.js")
+const { v4: uuidv4 } = require('uuid');
 
 class AccountsPage {
+
+
+    static generateRandomAccountNote() {
+        let randomAccountNote = uuidv4().slice(0, 8).concat('A_Test')
+
+        cy.log(randomAccountNote)
+        return randomAccountNote
+    }
+
+    static generateRandomreferenceCode() {
+        let randomReferenceCode = uuidv4().slice(0, 8).concat('A_Test')
+        cy.log(randomReferenceCode)
+        return randomReferenceCode
+    }
+
+
+    static generateRandomEventNote() {
+        let randomEventNote = uuidv4().slice(0, 8).concat('A_Test')
+        cy.log(randomEventNote)
+        return randomEventNote
+    }
 
 
     static getAccountInputAtSearch() {
@@ -26,7 +48,10 @@ class AccountsPage {
     }
 
     static selectRandomAccountTypeAtAddNewAccount() {
+
         cy.xpath("//div[@class='container']//select[@name='accountTypeId']/option").then(($el) => {
+
+            cy.wait(2000)
 
             let lenghtOptions = $el.length - 1;
 
@@ -35,7 +60,7 @@ class AccountsPage {
             //Math.floor(Math.random() * (max - min + 1) ) + min
             //min je 1 jer je nulti u nizu --Select-- pa onda krece niz koji nama treba
 
-            AccountsPage.getAccountTypesSelectAtAddNewAccount().select(Math.floor(Math.random() * (lenghtOptions - 1 + 1)) + 1)
+            AccountsPage.getAccountTypesSelectAtAddNewAccount({ timeout: 2000 }).select(Math.floor(Math.random() * (lenghtOptions - 1 + 1)) + 1)
 
         })
     }
@@ -48,9 +73,13 @@ class AccountsPage {
     static getAddNewAccountButton() {
         return cy.xpath("//button[@title='Add']")
     }
-
+    //******************************************************************
     static getRemoveButtonForOneAccountAfterSEarch() {
-        return cy.xpath("//button[@title='Remove Account']")
+        return cy.xpath("//button[@title='This Account cannot be removed.']")
+    }
+
+    static getRemoveButtons() {
+        return cy.xpath("//tbody//td/div[@class='text-center']/button[3]")
     }
 
     static getDeleteButtonAtConfirmDialog() {
@@ -59,8 +88,11 @@ class AccountsPage {
 
     static getReferenceCodeAtAddNewAccount() {
         return cy.xpath("//input[@formcontrolname='ReferenceCode']")
-    }
 
+    }
+    static getAccountNoteAtAddNewAccount() {
+        return cy.xpath("//cmp-account-dialog[1]//textarea[1][@formcontrolname='Note']")
+    }
     static getPropertyKeySelectFromAddNewAccount() {
 
         return cy.xpath("//div[@class='container']/div[1]/div[2]//select")
