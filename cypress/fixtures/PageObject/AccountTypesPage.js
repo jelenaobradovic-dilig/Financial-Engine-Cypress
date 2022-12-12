@@ -13,18 +13,21 @@ class AccountTypes {
     static generateRandomAccountTypeCaption() {
         let randomString = uuidv4().slice(0, 10)
         let randomAccountTypeCaption = ("A_Test").concat(randomString)
+        cy.log(randomAccountTypeCaption)
         return randomAccountTypeCaption
     }
 
     static generateRandomAccountTypeDescription() {
         let randomString = uuidv4().slice(0, 5)
         let randomAccountTypeDescription = ("Description").concat(randomString)
+        cy.log(randomAccountTypeDescription)
         return randomAccountTypeDescription
     }
 
     static generateRandomAccountTypeProperty() {
         let randomString = uuidv4().slice(0, 5)
         let randomAccountTypeProperty = ("Property").concat(randomString)
+        cy.log(randomAccountTypeProperty)
         return randomAccountTypeProperty
     }
 
@@ -79,9 +82,6 @@ class AccountTypes {
         return cy.contains('Save')
     }
 
-    static findSpinnerModal() {
-        return cy.get('#spinnerModal > .modal-dialog > .modal-content > .modal-body')
-    }
 
     static getCaptionCellsAtAccountTypesTable() {
         return cy.xpath("//table[@class='table table-bordered table-hover table-striped dataTable no-footer dtr-inline collapsed']/tbody/tr/td[2]")
@@ -106,6 +106,7 @@ class AccountTypes {
 
     static getPopUpMessage() {
         return cy.xpath("//*[@class='overlay-container']/div/div/div")
+
     }
 
 
@@ -173,7 +174,7 @@ class AccountTypes {
                         cy.wait(1000)
                         //**************ulazim u rekurziju jer klasa nije disabled
 
-                        AccountTypes.getNextButtonForPaginating().click({ force: true }).then(goToNextPage) 
+                        AccountTypes.getNextButtonForPaginating().click({ force: true }).then(goToNextPage)
                         //force true jer se ne vidi od otvorenog dijaloga, 
                         //ali to znaci da nisam prekinula each, on nastavi kroz tabelu, ali ipak je izvrsio klik na edit trazenog Captiona???
                     }
@@ -223,10 +224,7 @@ class AccountTypes {
                             if (caption === accountTypeCaption) {
                                 cy.writeFile('cypress/fixtures/tableData.json', { accountTypeCaption: caption })
 
-                                cy.log(caption.concat(' exist in table*****')).then(function () {
-                                    cy.xpath("//tbody/tr/td[7]/div[1]/button[1]").eq(index).click({ force: true }) //bug ne vidi se edit, zato force
-                                }
-                                )
+                                cy.log(caption.concat(' exist in table*****'))
 
 
                             }
@@ -237,7 +235,7 @@ class AccountTypes {
                         cy.log('DONE')
                     }
                     else {
-                        AccountTypes.getCaptionCellsAtAccountTypesTable().debug().each(($el, index, $list) => {
+                        AccountTypes.getCaptionCellsAtAccountTypesTable().each(($el, index, $list) => {
 
                             let caption = $el.text()
 

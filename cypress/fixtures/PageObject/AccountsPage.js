@@ -72,6 +72,13 @@ class AccountsPage {
 
     static getAddNewAccountButton() {
         return cy.xpath("//button[@title='Add']")
+
+    }
+
+    static getModalBody()
+
+    {
+        return cy.xpath("//div[@class='modal-body']")
     }
     //******************************************************************
     static getRemoveButtonForOneAccountAfterSEarch() {
@@ -131,9 +138,14 @@ class AccountsPage {
 
     }
 
-    static getPopUpMessage() { return cy.get('.ng-trigger > .ng-tns-c31-3') }
-    //cy.xpath("//div[@role='alert']")}
+    static getPopUpMessage() {
 
+        //return cy.get('.ng-trigger > .ng-tns-c31-3') }
+        //cy.xpath("//div[@role='alert']")}
+        
+        return cy.xpath("//*[@class='overlay-container']/div/div/div")
+
+    }
     static getSubmitButtonAtCReateNewAccount() {
         return cy.xpath("//div[@class='container']//button[@type='submit']")
 

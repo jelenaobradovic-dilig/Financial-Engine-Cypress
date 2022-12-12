@@ -24,25 +24,11 @@ describe('Submit Event', () => {
 
 
 
-  beforeEach(() => {
+  before(() => {
 
     cy.clearCookies()
 
-    cy.writeFile('cypress/fixtures/randomData.json', {
-      randomAccountNote: uuidv4().slice(0, 6).concat('A_Test'),
-      randomEventNote: uuidv4().slice(0, 6).concat("A_Test"),
-      randomAmount: (Math.floor(Math.random() * (10000 - 1 + 1)) + 1),
-      randomReferenceCode: uuidv4().slice(0, 6).concat("A_Test")
-    })
 
-
-    cy.fixture('randomData').then(function (info) {
-      randomData = info
-    })
-
-    cy.fixture('tableData2').then(function (info) {
-      tableData2 = info
-    })
     cy.fixture('fixData').then(function (info) {
       fixData = info
     })
@@ -53,127 +39,161 @@ describe('Submit Event', () => {
 
   })
 
-  it('Submit New Event with valid data, Banking Activity Submitted for Event type(without targeting) and NewAccountMethod', () => {
+  // it('Submit New Event with valid data, Banking Activity Submitted for Event type(without targeting) and NewAccountMethod', () => {
+
+  //   LogInPage.visitLogInPage()
+  //   LogInPage.findDiligentSplashScreen().should('not.exist')
+  //   LogInPage.logInUserWithUserRole(fixData.emailExistingUserRole, fixData.passwordExistingUserRole)
+  //   LogInPage.getAfterLogInSpinner().should('not.be.visible')
+
+  //   let randomAccountNote = AccountsPage.generateRandomAccountNote()
+  //   let randomReferenceCode = AccountsPage.generateRandomreferenceCode()
+  //   let randomEventNote = AccountsPage.generateRandomEventNote()
+  //   let randomAmount = (Math.floor(Math.random() * (10000 - 1 + 1)) + 1)
+
+  //   MainMenuPage.getSubEventsLink().click()
+  //   MainMenuPage.getSpinner().should('not.be.visible')
+
+  //   EventsPage.getTableInfoTextWithNumberOfEvents().then(function () {
+  //     let numberOfEventsBeforeSubmitAction = $el.text().slice(19, -8)
+  //     cy.log(numberOfEventsBeforeSubmitAction)
+
+  //     MainMenuPage.getSubmitEventLink().should('be.visible').click()
+  //     MainMenuPage.getSpinner().should('not.be.visible')
+  //     SubmitEvent.selectRandomDomain()
+  //     SubmitEvent.getSelectEventType().select('BankingActivitySubmitted')
+  //     SubmitEvent.getSelectAccountType().should('be.disabled')
+  //     SubmitEvent.typeEventNote(randomEventNote)
+  //     SubmitEvent.selectAccountMethodByOption('New Account')
+  //     SubmitEvent.getNewAccountSection().should('be.visible')
+  //     SubmitEvent.getReferenceCodeInput().type(randomReferenceCode)
+  //     SubmitEvent.typeInvalidAmountAtNewAccount()
+  //     SubmitEvent.getInvalidAmountFormatErrorMessage().should('have.text', 'Invalid number format.')
+
+  //     SubmitEvent.getAmountAtNewAccount().clear()
+  //     SubmitEvent.typeAmountAtNewAccount(randomAmount)
+  //     SubmitEvent.typeAccountNote(randomAccountNote)
+
+  //     SubmitEvent.getSubmitEventButton().click()
+  //     MainMenuPage.getSpinner().should('not.be.visible')
+
+  //     cy.wait(20000)  //Time to create event and related events.
+
+  //     MainMenuPage.getSubEventsLink().click()
+  //     MainMenuPage.getSpinner().should('not.be.visible')
+
+  //     EventsPage.compareNumberOfEvents(numberOfEventsBeforeSubmitAction, '2')
+
+
+  //   })
+
+
+
+  // })
+
+
+  // it('Submit New Event with valid data, random Event type(without targeting) and NewAccountMethod', () => {
+
+  //   LogInPage.visitLogInPage()
+  //   LogInPage.findDiligentSplashScreen().should('not.exist')
+  //   LogInPage.logInUserWithUserRole(fixData.emailExistingUserRole, fixData.passwordExistingUserRole)
+  //   MainMenuPage.getSpinner().should('not.be.visible')
+
+  //   MainMenuPage.getSubEventsLink().click()
+  //   MainMenuPage.getSpinner().should('not.be.visible')
+  //   cy.wait(1000)
+  //   let randomAccountNote = AccountsPage.generateRandomAccountNote()
+  //   let randomReferenceCode = AccountsPage.generateRandomreferenceCode()
+  //   let randomEventNote = AccountsPage.generateRandomEventNote()
+  //   let randomAmount = (Math.floor(Math.random() * (10000 - 1 + 1)) + 1)
+
+  //   EventsPage.getTableInfoTextWithNumberOfEvents().then(function () {
+  //     let numberOfEventsBeforeSubmitAction = $el.text().slice(19, -8)
+  //     cy.log(numberOfEventsBeforeSubmitAction)
+
+  //     MainMenuPage.getSubmitEventLink().should('be.visible').click()
+  //     MainMenuPage.getSpinner().should('not.be.visible')
+
+  //     SubmitEvent.selectRandomDomain()
+  //     SubmitEvent.selectRandomEventType()
+  //     SubmitEvent.getSelectAccountType().should('be.disabled')
+  //     SubmitEvent.typeEventNote(randomEventNote)
+  //     SubmitEvent.selectAccountMethodByOption('New Account')
+  //     SubmitEvent.getNewAccountSection().should('be.visible')
+  //     SubmitEvent.getReferenceCodeInput().type(randomReferenceCode)
+
+  //     SubmitEvent.typeInvalidAmountAtNewAccount()
+  //     SubmitEvent.getInvalidAmountFormatErrorMessage().should('have.text', 'Invalid number format.')
+  //     SubmitEvent.getAmountAtNewAccount().clear()
+  //     SubmitEvent.typeAmountAtNewAccount(randomAmount)
+  //     SubmitEvent.typeAccountNote(randomAccountNote)
+
+  //     SubmitEvent.getSubmitEventButton().click()
+  //     MainMenuPage.getSpinner().should('not.be.visible')
+  //     cy.wait(20000)  //Time to create event and related events.
+
+  //     MainMenuPage.getSubEventsLink().click()
+  //     MainMenuPage.getSpinner().should('not.be.visible')
+
+  //     EventsPage.compareNumberOfEventsForRandomEventType(numberOfEventsBeforeSubmitAction)
+
+
+  //   })
+
+  // })
+
+  it('Submit New Event with valid data, random Event type and ExistingAccountMethod', () => {
 
     LogInPage.visitLogInPage()
     LogInPage.findDiligentSplashScreen().should('not.exist')
     LogInPage.logInUserWithUserRole(fixData.emailExistingUserRole, fixData.passwordExistingUserRole)
-    LogInPage.getAfterLogInSpinner().should('not.be.visible')
-
-    MainMenuPage.getSubEventsLink().click()
-    MainMenuPage.getSpinner().should('not.be.visible')
-
-    EventsPage.writeIntoTableDataNumberOfEvents()
-
-    MainMenuPage.getSubmitEventLink().should('be.visible').click()
-    SubmitEvent.selectRandomDomain()
-    SubmitEvent.getSelectEventType().select('BankingActivitySubmitted')
-    SubmitEvent.getSelectAccountType().should('be.disabled')
-    SubmitEvent.typeEventNote(randomData.randomEventNote)
-    SubmitEvent.selectAccountMethodByOption('New Account')
-    SubmitEvent.getNewAccountSection().should('be.visible')
-
-    SubmitEvent.typeInvalidAmountAtNewAccount()
-    SubmitEvent.getInvalidAmountFormatErrorMessage().should('have.text', 'Invalid number format.')
-    SubmitEvent.getAmountAtNewAccount().clear()
-    SubmitEvent.typeAmountAtNewAccount(randomData.randomAmount)
-    SubmitEvent.typeAccountNote(randomData.randomAccountNote)
-
-    SubmitEvent.getSubmitEventButton().click()
-    
-    MainMenuPage.getSpinner().should('not.be.visible')
-    cy.wait(20000)  //Time to create event and related events.
-
-    MainMenuPage.getSubEventsLink().click()
-    MainMenuPage.getSpinner().should('not.be.visible')
-    EventsPage.compareNumberOfEvents(tableData.numberOfEvents, '2')
-
-  })
-
-
-  it('Submit New Event with valid data, random Event type(without targeting) and NewAccountMethod', () => {
-
-    LogInPage.visitLogInPage()
-    LogInPage.findDiligentSplashScreen().should('not.exist')
-    LogInPage.logInUserWithUserRole(fixData.emailExistingUserRole, fixData.passwordExistingUserRole)
-    LogInPage.getAfterLogInSpinner().should('not.be.visible')
-
-    MainMenuPage.getSubEventsLink().click()
-    cy.wait(1000)
-
-    EventsPage.writeIntoTableDataNumberOfEvents()
-
-    MainMenuPage.getSubmitEventLink().should('be.visible').click()
-    SubmitEvent.selectRandomDomain()
-    SubmitEvent.selectRandomEventType()
-    SubmitEvent.getSelectAccountType().should('be.disabled')
-    SubmitEvent.typeEventNote(randomData.randomEventNote)
-    SubmitEvent.selectAccountMethodByOption('New Account')
-    SubmitEvent.getNewAccountSection().should('be.visible')
-
-    SubmitEvent.typeInvalidAmountAtNewAccount()
-    SubmitEvent.getInvalidAmountFormatErrorMessage().should('have.text', 'Invalid number format.')
-    SubmitEvent.getAmountAtNewAccount().clear()
-    SubmitEvent.typeAmountAtNewAccount(randomData.randomAmount)
-    SubmitEvent.typeAccountNote(randomData.randomAccountNote)
-
-    SubmitEvent.getSubmitEventButton().click()
-    
-    MainMenuPage.getSpinner().should('not.be.visible')
-    cy.wait(20000)  //Time to create event and related events.
-
-    MainMenuPage.getSubEventsLink().click()
-    MainMenuPage.getSpinner().should('not.be.visible')
-
-    EventsPage.compareNumberOfEventsForRandomEventType(tableData.numberOfEvents)
-
-  })
-
-   it('Submit New Event with valid data, random Event type and ExistingAccountMethod', () => {
-
-    LogInPage.visitLogInPage()
-    LogInPage.findDiligentSplashScreen().should('not.exist')
-    LogInPage.logInUserWithUserRole(fixData.emailExistingUserRole, fixData.passwordExistingUserRole)
     MainMenuPage.getSpinner().should('not.be.visible')
 
 
     MainMenuPage.getSubEventsLink().click()
     MainMenuPage.getSpinner().should('not.be.visible')
 
-    EventsPage.writeIntoTableDataNumberOfEvents()
+    let randomAccountNote = AccountsPage.generateRandomAccountNote()
+    let randomReferenceCode = AccountsPage.generateRandomreferenceCode()
+    let randomEventNote = AccountsPage.generateRandomEventNote()
+    let randomAmount = (Math.floor(Math.random() * (10000 - 1 + 1)) + 1)
 
-    AccountsPage.createNewAccount(fixData.accountType1, randomData.randomReferenceCode)
+    EventsPage.getTableInfoTextWithNumberOfEvents().then(function ($el) {
 
-    AccountsPage.getAccountInputAtSearch().type(randomData.randomReferenceCode)
+      let numberOfEventsBeforeSubmitAction = $el.text().slice(19, -8)
+      cy.log(numberOfEventsBeforeSubmitAction)
+
+    AccountsPage.createNewAccount(fixData.accountType1, randomReferenceCode)
+
+    AccountsPage.getAccountInputAtSearch().type(randomReferenceCode)
     AccountsPage.getSearchButton().click()
     MainMenuPage.getSpinner().should('not.be.visible')
-    AccountsPage.getAccountsTdFromTable().should('length', 1)
-
-    AccountsPage.getAccountsTdFromTable(($el)=>{
-
-        let caption = $el.text()
-        cy.log(caption)
-        cy.writeFile('cypress/fixtures/tableData2.json', { accountCaption: caption })
-
-    })
     
+    AccountsPage.getAccountsTdFromTable().should('length', 1).and((function($el) {
+
+      let caption = $el.text()
+      cy.log(caption)
+      
     MainMenuPage.getSubmitEventLink().should('be.visible').click()
+    MainMenuPage.getSpinner().should('not.be.visible')
     SubmitEvent.selectRandomDomain()
     SubmitEvent.selectRandomEventType()
     SubmitEvent.getSelectAccountType().should('be.disabled')
-    SubmitEvent.typeEventNote(randomData.randomEventNote)
+    SubmitEvent.typeEventNote(randomEventNote)
     SubmitEvent.selectAccountMethodByOption('Existing Account')
     SubmitEvent.getNewAccountSection().should('not.exist')
-    SubmitEvent.getExistingAccountInput().type(tableData2.accountCaption)
+    SubmitEvent.getExistingAccountInput().type(caption)
     SubmitEvent.getSubmitEventButton().click()
+    MainMenuPage.getSpinner().should('not.be.visible')
     cy.wait(20000)
 
-    MainMenuPage.getSubEventsLink().click()
+    MainMenuPage.getSubEventsLink().should('be.visible').click()
     MainMenuPage.getSpinner().should('not.be.visible')
-    
-    EventsPage.compareNumberOfEventsForRandomEventType(tableData.numberOfEvents)
 
+    EventsPage.compareNumberOfEventsForRandomEventType(numberOfEventsBeforeSubmitAction)
+    })
+
+    )})
   })
-
 
 })

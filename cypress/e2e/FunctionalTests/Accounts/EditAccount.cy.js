@@ -31,10 +31,6 @@ describe('Edit Account', () => {
             fixData=info
 
         })
-            cy.fixture('randomEmailAndPas').then(function(info){
-                randomData=info
-
-        })
     })
 
 
