@@ -99,8 +99,14 @@ class UserManagement {
 
     //koriscen relative xpath jer ima 2 modala sa istom klasom itd i uvek izbacuje po 2 rezultata, 1 modal trenutno nije u upotrebi, mozda ce biti izbrisan iz koda
 
+
+    static getFirstNameFromAddNewUser() {
+
+        return cy.xpath("//app-users[1]/cmp-user-dialog[1]/div[1]/div[1]/div[2]/form[1]/div[1]/div[1]/div[1]/div[1]/input[1]")
+
+    }
     static typeFirstName(firstName) {
-        cy.xpath("//app-users[1]/cmp-user-dialog[1]/div[1]/div[1]/div[2]/form[1]/div[1]/div[1]/div[1]/div[1]/input[1]").type(firstName)
+        cy.xpath("//app-users[1]/cmp-user-dialog[1]/div[1]/div[1]/div[2]/form[1]/div[1]/div[1]/div[1]/div[1]/input[1]").clear().type(firstName)
 
     }
 
