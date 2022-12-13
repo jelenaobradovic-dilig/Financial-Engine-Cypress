@@ -62,13 +62,29 @@ describe('Create New Account', () => {
 
             AccountsPage.getAddNewAccountButton().click()
             MainMenuPage.getSpinner().should('not.be.visible')
-            AccountsPage.selectRandomAccountTypeAtAddNewAccount()
-            .then(function () {
+
+
+            AccountsPage.getOptionListAtAccountTypesSelectAtAddNewAccount().then(function ($el) {
+                let lenghtOptions = $el.length - 1;
+
+                cy.log("Length is " + lenghtOptions)
+
+                let randomOption = Math.floor(Math.random() * (lenghtOptions - 1 + 1)) + 1
+
+                cy.log('Random option is ' + randomOption)
+
                 AccountsPage.getAccountTypesSelectAtAddNewAccount()
-                .find('option:selected')
-                .invoke('text')
-                    .then((text) => text.trim()).should('not.equal', 'BankAccount').and('not.equal', 'Operational')
+                    .select(randomOption)
+                    .then(function () {
+                        AccountsPage.getAccountTypesSelectAtAddNewAccount()
+                            .find('option:selected')
+                            .invoke('text')
+                            .then((text) => text.trim()).should('not.equal', 'BankAccount').and('not.equal', 'Operational')
+                    })
+
             })
+
+
 
             AccountsPage.getReferenceCodeAtAddNewAccount().type(randomReferenceCode)
             AccountsPage.getAccountNoteAtAddNewAccount().type(randomAccountNote)
@@ -110,54 +126,54 @@ describe('Create New Account', () => {
     it('Create Account trough Submit Event page', () => {
 
 
-        LogInPage.visitLogInPage()
-        LogInPage.findDiligentSplashScreen().should('not.exist')
-        LogInPage.logInUserWithUserRole(fixData.emailExistingUserRole, fixData.passwordExistingUserRole)
-        MainMenuPage.getSpinner().should('not.be.visible')
+        // LogInPage.visitLogInPage()
+        // LogInPage.findDiligentSplashScreen().should('not.exist')
+        // LogInPage.logInUserWithUserRole(fixData.emailExistingUserRole, fixData.passwordExistingUserRole)
+        // MainMenuPage.getSpinner().should('not.be.visible')
 
-        MainMenuPage.getSubAccountsLink().click()
+        // MainMenuPage.getSubAccountsLink().click()
 
-        MainMenuPage.getSpinner().should("not.be.visible")
+        // MainMenuPage.getSpinner().should("not.be.visible")
 
-        let randomAccountNote = AccountsPage.generateRandomAccountNote()
-        let randomReferenceCode = AccountsPage.generateRandomreferenceCode()
-        let randomEventNote = AccountsPage.generateRandomEventNote()
-        let randomAmount = (Math.floor(Math.random() * (10000 - 1 + 1)) + 1)
+        // let randomAccountNote = AccountsPage.generateRandomAccountNote()
+        // let randomReferenceCode = AccountsPage.generateRandomreferenceCode()
+        // let randomEventNote = AccountsPage.generateRandomEventNote()
+        // let randomAmount = (Math.floor(Math.random() * (10000 - 1 + 1)) + 1)
 
-        AccountsPage.getTableInfoTextWithNumberOfAccounts().then(($el) => {
+        // AccountsPage.getTableInfoTextWithNumberOfAccounts().then(($el) => {
 
-            let numberOfAccountsBeforeSubmitAction = $el.text().slice(19, -8)
-            cy.log(numberOfAccountsBeforeSubmitAction)
+        //     let numberOfAccountsBeforeSubmitAction = $el.text().slice(19, -8)
+        //     cy.log(numberOfAccountsBeforeSubmitAction)
 
-            MainMenuPage.getSubmitEventLink().should('be.visible').click()
-            cy.wait(1000)
-            SubmitEvent.selectRandomDomain()
-            SubmitEvent.selectRandomEventType()
-            SubmitEvent.getSelectAccountType().should('be.disabled')
-            SubmitEvent.typeEventNote(randomEventNote)
-            SubmitEvent.selectAccountMethodByOption('New Account')
-            SubmitEvent.getNewAccountSection().should('be.visible')
-            SubmitEvent.typeAmountAtNewAccount(randomAmount)
-            SubmitEvent.typeAccountNote(randomAccountNote)
-            SubmitEvent.getReferenceCodeInput().type(randomReferenceCode)
-            SubmitEvent.getSubmitEventButton().click()
-            MainMenuPage.getSpinner().should('not.be.visible')
-            SubmitEvent.getPopUpMessage().should('be.visible').and('have.text', ' Event created sucessfully ').click()
+        //     MainMenuPage.getSubmitEventLink().should('be.visible').click()
+        //     cy.wait(1000)
+        //     SubmitEvent.selectRandomDomain()
+        //     SubmitEvent.selectRandomEventType()
+        //     SubmitEvent.getSelectAccountType().should('be.disabled')
+        //     SubmitEvent.typeEventNote(randomEventNote)
+        //     SubmitEvent.selectAccountMethodByOption('New Account')
+        //     SubmitEvent.getNewAccountSection().should('be.visible')
+        //     SubmitEvent.typeAmountAtNewAccount(randomAmount)
+        //     SubmitEvent.typeAccountNote(randomAccountNote)
+        //     SubmitEvent.getReferenceCodeInput().type(randomReferenceCode)
+        //     SubmitEvent.getSubmitEventButton().click()
+        //     MainMenuPage.getSpinner().should('not.be.visible')
+        //     SubmitEvent.getPopUpMessage().should('be.visible').and('have.text', ' Event created sucessfully ').click()
 
-            cy.wait(20000) // time to create event and related events
+        //     cy.wait(20000) // time to create event and related events
 
-            MainMenuPage.getSubAccountsLink().click()
-            MainMenuPage.getSpinner().should('not.be.visible')
-            AccountsPage.compareNumberOfAccountsBeforeAndAfterCreateAcount(numberOfAccountsBeforeSubmitAction)
+        //     MainMenuPage.getSubAccountsLink().click()
+        //     MainMenuPage.getSpinner().should('not.be.visible')
+        //     AccountsPage.compareNumberOfAccountsBeforeAndAfterCreateAcount(numberOfAccountsBeforeSubmitAction)
 
-            AccountsPage.getAccountInputAtSearch().type(randomReferenceCode)
-            AccountsPage.getSearchButton().click()
-            MainMenuPage.getSpinner().should('not.be.visible')
-            AccountsPage.getAccountsTdFromTable().should('have.length', 1)
+        //     AccountsPage.getAccountInputAtSearch().type(randomReferenceCode)
+        //     AccountsPage.getSearchButton().click()
+        //     MainMenuPage.getSpinner().should('not.be.visible')
+        //     AccountsPage.getAccountsTdFromTable().should('have.length', 1)
 
-            AccountsPage.getRemoveButtons().should('have.length', 1).and('be.disabled')
+        //     AccountsPage.getRemoveButtons().should('have.length', 1).and('be.disabled')
 
-        })
+        // })
 
     })
 

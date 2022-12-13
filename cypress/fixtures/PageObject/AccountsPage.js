@@ -69,6 +69,12 @@ class AccountsPage {
         })
     }
 
+    static getOptionListAtAccountTypesSelectAtAddNewAccount() {
+       return cy.xpath("//cmp-account-dialog[1]/div[1]/div[1]/div[2]/form[1]/div[1]/div[1]/div[1]/div[1]/div[1]/select[1]/option")
+
+          
+    }
+
     static selectAccountTypeByNameAtAddNewAccount(accountType) {
         AccountsPage.getAccountTypesSelectAtAddNewAccount().select(accountType)
     }
