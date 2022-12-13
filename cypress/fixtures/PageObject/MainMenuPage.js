@@ -74,9 +74,12 @@ class MainMenu {
         return MainMenu.getMainMenuAllMembers().contains('Submit Event')
     }
 
-static getSubEventsLink()
-{return cy.get(':nth-child(3) > .has-treeview > :nth-child(3) > .nav-item > .nav-link')}
+    static getSubEventsLink() { return cy.get(':nth-child(3) > .has-treeview > :nth-child(3) > .nav-item > .nav-link') }
 
-
+    static getTargetAccountLink() {
+        return MainMenu.getMainMenuAllMembers().contains('Target Account')
+    }
 }
+
+
 module.exports = MainMenu

@@ -70,9 +70,15 @@ class AccountsPage {
     }
 
     static getOptionListAtAccountTypesSelectAtAddNewAccount() {
+
        return cy.xpath("//cmp-account-dialog[1]/div[1]/div[1]/div[2]/form[1]/div[1]/div[1]/div[1]/div[1]/div[1]/select[1]/option")
 
           
+    }
+
+    static getAccountTypeTdFromTable()
+    {
+        return cy.xpath('//accounts[1]/div[2]/table[1]/tbody[1]/tr/td[3]')
     }
 
     static selectAccountTypeByNameAtAddNewAccount(accountType) {
