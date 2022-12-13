@@ -63,18 +63,19 @@ describe('Create New Account', () => {
             AccountsPage.getAddNewAccountButton().click()
             MainMenuPage.getSpinner().should('not.be.visible')
             AccountsPage.selectRandomAccountTypeAtAddNewAccount()
+            .then(function () {
+                AccountsPage.getAccountTypesSelectAtAddNewAccount()
+                .find('option:selected')
+                .invoke('text')
+                    .then((text) => text.trim()).should('not.equal', 'BankAccount').and('not.equal', 'Operational')
+            })
+
             AccountsPage.getReferenceCodeAtAddNewAccount().type(randomReferenceCode)
             AccountsPage.getAccountNoteAtAddNewAccount().type(randomAccountNote)
             AccountsPage.getSubmitButtonAtCReateNewAccount().click()
+
             //MainMenuPage.getSpinner().should('not.be.visible') //ako cekamo da spinner ne bude vidljiv u medjuvremenu i pop up nestane
             AccountsPage.getPopUpMessage().should('be.visible').and('have.text', ' Account created successfully ').click()
-
-            //*****************
-            //AccountsPage.getPopUpMessage().should(($popUp) => {
-            // expect($popUp.text()).to.contain.text('Account created successfully')
-
-            //})
-            //******************
 
             AccountsPage.compareNumberOfAccountsBeforeAndAfterCreateAcount(numberOfAccountsBeforeCreateAction)
             AccountsPage.getAccountInputAtSearch().type(randomReferenceCode)

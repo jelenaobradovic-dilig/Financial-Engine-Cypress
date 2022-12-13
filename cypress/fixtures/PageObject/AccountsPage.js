@@ -39,8 +39,7 @@ class AccountsPage {
         return cy.xpath("//cmp-account-dialog[1]/div[1]/div[1]/div[2]/form[1]/div[1]/div[1]/div[1]/div[1]/div[1]/select[1]")
     }
 
-    static getTargetAccountTypeAtAddNewAccount()
-    {
+    static getTargetAccountTypeAtAddNewAccount() {
         return cy.xpath("//cmp-account-dialog[1]//cmp-target-account[1]/table[1]/tfoot[1]/tr[1]/td[1]/select[1]")
     }
 
@@ -54,9 +53,9 @@ class AccountsPage {
 
     static selectRandomAccountTypeAtAddNewAccount() {
 
-        cy.xpath("//div[@class='container']//select[@name='accountTypeId']/option").then(($el) => {
+        cy.xpath("//cmp-account-dialog[1]/div[1]/div[1]/div[2]/form[1]/div[1]/div[1]/div[1]/div[1]/div[1]/select[1]/option").then(($el) => {
 
-            cy.wait(2000)
+            cy.wait(1000)
 
             let lenghtOptions = $el.length - 1;
 
@@ -65,7 +64,7 @@ class AccountsPage {
             //Math.floor(Math.random() * (max - min + 1) ) + min
             //min je 1 jer je nulti u nizu --Select-- pa onda krece niz koji nama treba
 
-            AccountsPage.getAccountTypesSelectAtAddNewAccount({ timeout: 2000 }).select(Math.floor(Math.random() * (lenghtOptions - 1 + 1)) + 1)
+            AccountsPage.getAccountTypesSelectAtAddNewAccount({ timeout: 1000 }).select(Math.floor(Math.random() * (lenghtOptions - 1 + 1)) + 1)
 
         })
     }
@@ -80,9 +79,7 @@ class AccountsPage {
 
     }
 
-    static getModalBody()
-
-    {
+    static getModalBody() {
         return cy.xpath("//div[@class='modal-body']")
     }
     //******************************************************************
@@ -147,7 +144,7 @@ class AccountsPage {
 
         //return cy.get('.ng-trigger > .ng-tns-c31-3') }
         //cy.xpath("//div[@role='alert']")}
-        
+
         return cy.xpath("//*[@class='overlay-container']/div/div/div")
 
     }
