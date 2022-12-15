@@ -21,6 +21,11 @@ class TargetAccount{
         return cy.xpath("//tbody[@class='ng-star-inserted']/tr/td[8]")
     }
 
+    static getTargetAccountInput()
+    {
+        return cy.xpath('//tfoot//td[2]/input')
+    }
+
 }
 
 module.exports =TargetAccount

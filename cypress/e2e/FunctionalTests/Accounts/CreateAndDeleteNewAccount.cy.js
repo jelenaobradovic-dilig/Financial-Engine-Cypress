@@ -44,81 +44,81 @@ describe('Create New Account', () => {
     })
 
 
-    // it('Create Account trough Account page, Create new Account  with valid data and random Account type', () => {
+    it('Create Account trough Account page, Create new Account  with valid data and random Account type', () => {
 
-    //     LogInPage.visitLogInPage()
-    //     LogInPage.logInUserWithUserRole(fixData.emailExistingUserRole, fixData.passwordExistingUserRole)
+        LogInPage.visitLogInPage()
+        LogInPage.logInUserWithUserRole(fixData.emailExistingUserRole, fixData.passwordExistingUserRole)
 
-    //     MainMenuPage.getSubAccountsLink().click()
-    //     MainMenuPage.getSpinner().should('not.be.visible')
+        MainMenuPage.getSubAccountsLink().click()
+        MainMenuPage.getSpinner().should('not.be.visible')
 
-    //     let randomAccountNote = AccountsPage.generateRandomAccountNote()
-    //     let randomReferenceCode = AccountsPage.generateRandomreferenceCode()
-    //     let randomAmount = (Math.floor(Math.random() * (10000 - 1 + 1)) + 1)
+        let randomAccountNote = AccountsPage.generateRandomAccountNote()
+        let randomReferenceCode = AccountsPage.generateRandomreferenceCode()
+        let randomAmount = (Math.floor(Math.random() * (10000 - 1 + 1)) + 1)
 
-    //     AccountsPage.getTableInfoTextWithNumberOfAccounts().then(($el) => {
+        AccountsPage.getTableInfoTextWithNumberOfAccounts().then(($el) => {
 
-    //         let numberOfAccountsBeforeCreateAction = $el.text().slice(19, -8)
-    //         cy.log(numberOfAccountsBeforeCreateAction)
+            let numberOfAccountsBeforeCreateAction = $el.text().slice(19, -8)
+            cy.log(numberOfAccountsBeforeCreateAction)
 
-    //         AccountsPage.getAddNewAccountButton().click()
-    //         MainMenuPage.getSpinner().should('not.be.visible')
-
-
-    //         AccountsPage.getOptionListAtAccountTypesSelectAtAddNewAccount().then(function ($el) {
-    //             let lenghtOptions = $el.length - 1;
-
-    //             cy.log("Length is " + lenghtOptions)
-
-    //             let randomOption = Math.floor(Math.random() * (lenghtOptions - 1 + 1)) + 1
-
-    //             cy.log('Random option is ' + randomOption)
-
-    //             AccountsPage.getAccountTypesSelectAtAddNewAccount()
-    //                 .select(randomOption)
-    //                 .then(function () {
-    //                     AccountsPage.getAccountTypesSelectAtAddNewAccount()
-    //                         .find('option:selected')
-    //                         .invoke('text')
-    //                         .then((text) => text.trim()).should('not.equal', 'BankAccount').and('not.equal', 'Operational')
-    //                 })
-
-    //         })
+            AccountsPage.getAddNewAccountButton().click()
+            MainMenuPage.getSpinner().should('not.be.visible')
 
 
+            AccountsPage.getOptionListAtAccountTypesSelectAtAddNewAccount().then(function ($el) {
+                let lenghtOptions = $el.length - 1;
 
-    //         AccountsPage.getReferenceCodeAtAddNewAccount().type(randomReferenceCode)
-    //         AccountsPage.getAccountNoteAtAddNewAccount().type(randomAccountNote)
-    //         AccountsPage.getSubmitButtonAtCReateNewAccount().click()
+                cy.log("Length is " + lenghtOptions)
 
-    //         //MainMenuPage.getSpinner().should('not.be.visible') //ako cekamo da spinner ne bude vidljiv u medjuvremenu i pop up nestane
-    //         AccountsPage.getPopUpMessage().should('be.visible').and('have.text', ' Account created successfully ').click()
+                let randomOption = Math.floor(Math.random() * (lenghtOptions - 1 + 1)) + 1
 
-    //         AccountsPage.compareNumberOfAccountsBeforeAndAfterCreateAcount(numberOfAccountsBeforeCreateAction)
-    //         AccountsPage.getAccountInputAtSearch().type(randomReferenceCode)
-    //         AccountsPage.getSearchButton().click()
-    //         MainMenuPage.getSpinner().should('not.be.visible')
-    //         AccountsPage.getAccountsTdFromTable().should('have.length', 1)
-    //         AccountsPage.getRemoveButtons().should('have.length', 1).and('be.enabled').click()
-    //         AccountsPage.getDeleteButtonAtConfirmDialog().should('be.visible').click()
-    //         AccountsPage.getPopUpMessage().should('be.visible').and('have.text', ' Account removed successfully ').click()
-    //         AccountsPage.getPopUpMessage().should('not.exist')
-    //         cy.wait(1000)
+                cy.log('Random option is ' + randomOption)
 
-    //         MainMenuPage.getSpinner().should('not.be.visible')
-    //         cy.wait(1000)
-    //         //BUG GDE SE BLOKIRA DIALOG zato je force type za polja ispod dijaloga u sledecem koraku
-    //         MainMenuPage.getSpinner().should('not.be.visible')
-    //         cy.wait(1000)
+                AccountsPage.getAccountTypesSelectAtAddNewAccount()
+                    .select(randomOption)
+                    .then(function () {
+                        AccountsPage.getAccountTypesSelectAtAddNewAccount()
+                            .find('option:selected')
+                            .invoke('text')
+                            .then((text) => text.trim()).should('not.equal', 'BankAccount').and('not.equal', 'Operational')
+                    })
 
-    //         AccountsPage.getAccountInputAtSearch().type(randomReferenceCode, { force: true }) //BUG GDE SE BLOKIRA DIALOG
-    //         AccountsPage.getSearchButton().click({ force: true })// BUG GDE SE BLOKIRA DIJALOG
-    //         MainMenuPage.getSpinner().should('not.be.visible')
-    //         AccountsPage.getAccountsTdFromTable().should('not.exist')
+            })
 
-    //     })
 
-    // })
+
+            AccountsPage.getReferenceCodeAtAddNewAccount().type(randomReferenceCode)
+            AccountsPage.getAccountNoteAtAddNewAccount().type(randomAccountNote)
+            AccountsPage.getSubmitButtonAtCReateNewAccount().click()
+
+            //MainMenuPage.getSpinner().should('not.be.visible') //ako cekamo da spinner ne bude vidljiv u medjuvremenu i pop up nestane
+            AccountsPage.getPopUpMessage().should('be.visible').and('have.text', ' Account created successfully ').click()
+
+            AccountsPage.compareNumberOfAccountsBeforeAndAfterCreateAcount(numberOfAccountsBeforeCreateAction)
+            AccountsPage.getAccountInputAtSearch().type(randomReferenceCode)
+            AccountsPage.getSearchButton().click()
+            MainMenuPage.getSpinner().should('not.be.visible')
+            AccountsPage.getAccountsTdFromTable().should('have.length', 1)
+            AccountsPage.getRemoveButtons().should('have.length', 1).and('be.enabled').click()
+            AccountsPage.getDeleteButtonAtConfirmDialog().should('be.visible').click()
+            AccountsPage.getPopUpMessage().should('be.visible').and('have.text', ' Account removed successfully ').click()
+            AccountsPage.getPopUpMessage().should('not.exist')
+            cy.wait(1000)
+
+            MainMenuPage.getSpinner().should('not.be.visible')
+            cy.wait(1000)
+            //BUG GDE SE BLOKIRA DIALOG zato je force type za polja ispod dijaloga u sledecem koraku
+            MainMenuPage.getSpinner().should('not.be.visible')
+            cy.wait(1000)
+
+            AccountsPage.getAccountInputAtSearch().type(randomReferenceCode, { force: true }) //BUG GDE SE BLOKIRA DIALOG
+            AccountsPage.getSearchButton().click({ force: true })// BUG GDE SE BLOKIRA DIJALOG
+            MainMenuPage.getSpinner().should('not.be.visible')
+            AccountsPage.getAccountsTdFromTable().should('not.exist')
+
+        })
+
+    })
 
 
     it('Create Account trough Submit Event page', () => {

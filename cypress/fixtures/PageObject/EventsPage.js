@@ -44,5 +44,38 @@ class EventsPage {
 
     }
 
+
+    static getAccountInputAtSearch() {
+        return cy.xpath('//events[1]/div[1]/div[2]/div[1]/div[1]/div[3]//input[1]')
+    }
+
+
+    static getSearchButton() {
+        return cy.xpath("//div[@class='mt-3']//button[2]")
+    }
+
+    static getEventStateSelectFromSearch() {
+        return cy.xpath("//select[@name='eventStateTypeId']")
+    }
+
+
+    static getEventTypeTdsFromTable() {
+
+        return cy.xpath('//tbody/tr/td[3]')
+    }
+
+    static getEventStateTypeTdsFromTable() {
+        return cy.xpath('//tbody/tr/td[4]')
+    }
+
+    static getAccountTdsFromTable() {
+        return cy.xpath('//tbody/tr/td[5]')
+
+    }
+    static getNoteTdsFromTable() {
+        return cy.xpath('//tbody/tr/td[6]')
+    }
+
+
 }
 module.exports = EventsPage

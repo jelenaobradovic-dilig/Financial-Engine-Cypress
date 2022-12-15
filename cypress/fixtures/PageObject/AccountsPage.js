@@ -71,13 +71,12 @@ class AccountsPage {
 
     static getOptionListAtAccountTypesSelectAtAddNewAccount() {
 
-       return cy.xpath("//cmp-account-dialog[1]/div[1]/div[1]/div[2]/form[1]/div[1]/div[1]/div[1]/div[1]/div[1]/select[1]/option")
+        return cy.xpath("//cmp-account-dialog[1]/div[1]/div[1]/div[2]/form[1]/div[1]/div[1]/div[1]/div[1]/div[1]/select[1]/option")
 
-          
+
     }
 
-    static getAccountTypeTdFromTable()
-    {
+    static getAccountTypeTdFromTable() {
         return cy.xpath('//accounts[1]/div[2]/table[1]/tbody[1]/tr/td[3]')
     }
 
@@ -160,6 +159,7 @@ class AccountsPage {
         return cy.xpath("//*[@class='overlay-container']/div/div/div")
 
     }
+    
     static getSubmitButtonAtCReateNewAccount() {
         return cy.xpath("//div[@class='container']//button[@type='submit']")
 
@@ -173,7 +173,7 @@ class AccountsPage {
     static createNewAccount(accountType, randomReferenceCode) {
         MainMenuPage.getSubAccountsLink().click()
         MainMenuPage.getSpinner().should('not.be.visible')
-        AccountsPage.getAddNewAccountButton().click({ force: true })
+        AccountsPage.getAddNewAccountButton().click()
         MainMenuPage.getSpinner().should('not.be.visible')
         AccountsPage.selectAccountTypeByNameAtAddNewAccount(accountType)
         AccountsPage.getReferenceCodeAtAddNewAccount().type(randomReferenceCode)// da bi mogli preko refernce koda da nadjemo Account
@@ -181,7 +181,9 @@ class AccountsPage {
         MainMenuPage.getSpinner().should('not.be.visible')
     }
 
-    static getAccountCaptionTd() { return cy.xpath("//accounts[1]/div[2]/table[1]/tbody[1]/tr/td[4]") }
+    static getAccountCaptionTd() {
+        return cy.xpath("//accounts[1]/div[2]/table[1]/tbody[1]/tr/td[4]")
+    }
 
 }
 

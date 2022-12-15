@@ -134,82 +134,82 @@ describe('Create New Account Type ', () => {
 
     })
 
-    // it('Create Account type with data at all fields and without Target required', () => {
+    it('Create Account type with data at all fields and without Target required', () => {
 
-    //     LogInPage.visitLogInPage()
-    //     LogInPage.logInUserWithAdminRole(fixData.emailExistingAdminRoleUser, fixData.passwordExistingAdminRoleUser)
-    //     MainMenuPage.getSpinner().should('not.be.visible')
+        LogInPage.visitLogInPage()
+        LogInPage.logInUserWithAdminRole(fixData.emailExistingAdminRoleUser, fixData.passwordExistingAdminRoleUser)
+        MainMenuPage.getSpinner().should('not.be.visible')
 
-    //     let randomAccountTypeCaption = AccountTypesPage.generateRandomAccountTypeCaption()
-    //     let randomAccountTypeDescription = AccountTypesPage.generateRandomAccountTypeDescription()
-    //     let randomAccountTypeProperty = AccountTypesPage.generateRandomAccountTypeProperty()
+        let randomAccountTypeCaption = AccountTypesPage.generateRandomAccountTypeCaption()
+        let randomAccountTypeDescription = AccountTypesPage.generateRandomAccountTypeDescription()
+        let randomAccountTypeProperty = AccountTypesPage.generateRandomAccountTypeProperty()
 
-    //     MainMenuPage.getAccountTypesLink().should('be.visible').click()
-    //     MainMenuPage.getSpinner().should('not.be.visible')
-    //     AccountTypesPage.findAddAccountTypeButton().click()
-    //     MainMenuPage.getSpinner().should('not.be.visible')
-    //     AccountTypesPage.findSaveButton().should('be.visible')
+        MainMenuPage.getAccountTypesLink().should('be.visible').click()
+        MainMenuPage.getSpinner().should('not.be.visible')
+        AccountTypesPage.findAddAccountTypeButton().click()
+        MainMenuPage.getSpinner().should('not.be.visible')
+        AccountTypesPage.findSaveButton().should('be.visible')
 
-    //     AccountTypesPage.getAccountTypeCaptionAtAddNewAccount().clear().then(function () {
+        AccountTypesPage.getAccountTypeCaptionAtAddNewAccount().clear().then(function () {
 
-    //         AccountTypesPage.typeAccountTypeCaption(randomAccountTypeCaption)
-    //         AccountTypesPage.typeAccountTypeDescription(randomAccountTypeDescription)
-    //         AccountTypesPage.findTargetCheckbox().should('not.be.checked')
-    //         AccountTypesPage.typeProperty(randomAccountTypeProperty)
-    //         AccountTypesPage.findAddPropertyButton().click()
-    //         AccountTypesPage.findSaveButton().click()
-    //         AccountTypesPage.getPopUpMessage().should('be.visible').and('have.text', ' Account Type created successfully ').click()
-    //         AccountTypesPage.getPopUpMessage().should('not.exist')
+            AccountTypesPage.typeAccountTypeCaption(randomAccountTypeCaption)
+            AccountTypesPage.typeAccountTypeDescription(randomAccountTypeDescription)
+            AccountTypesPage.findTargetCheckbox().should('not.be.checked')
+            AccountTypesPage.typeProperty(randomAccountTypeProperty)
+            AccountTypesPage.findAddPropertyButton().click()
+            AccountTypesPage.findSaveButton().click()
+            AccountTypesPage.getPopUpMessage().should('be.visible').and('have.text', ' Account Type created successfully ').click()
+            AccountTypesPage.getPopUpMessage().should('not.exist')
 
-    //         MainMenuPage.getSpinner().should('not.be.visible')
+            MainMenuPage.getSpinner().should('not.be.visible')
 
-    //         MainMenuPage.getUserIconButton().should('be.visible').click()
-    //         MainMenuPage.getLogoutButton().click()
+            MainMenuPage.getUserIconButton().should('be.visible').click()
+            MainMenuPage.getLogoutButton().click()
 
-    //         LogInPage.logInUserWithUserRole(fixData.emailExistingUserRole, fixData.passwordExistingUserRole)
-    //         MainMenuPage.getSpinner().should('not.be.visible')
+            LogInPage.logInUserWithUserRole(fixData.emailExistingUserRole, fixData.passwordExistingUserRole)
+            MainMenuPage.getSpinner().should('not.be.visible')
 
-    //         MainMenuPage.getAccountTypesLink().should('be.visible').click()
-    //         MainMenuPage.getSpinner().should('not.be.visible')
+            MainMenuPage.getAccountTypesLink().should('be.visible').click()
+            MainMenuPage.getSpinner().should('not.be.visible')
 
-    //         AccountTypesPage.writeDataIfAccountTypeExistsInTable(randomAccountTypeCaption)
+            AccountTypesPage.writeDataIfAccountTypeExistsInTable(randomAccountTypeCaption)
 
-    //         cy
-    //             .readFile('cypress/fixtures/tableData.json')
-    //             .its('accountTypeCaption').should('eq', randomAccountTypeCaption)
+            cy
+                .readFile('cypress/fixtures/tableData.json')
+                .its('accountTypeCaption').should('eq', randomAccountTypeCaption)
 
-    //         MainMenuPage.getSubAccountsLink().click()
-    //         MainMenuPage.getSpinner().should('not.be.visible')
+            MainMenuPage.getSubAccountsLink().click()
+            MainMenuPage.getSpinner().should('not.be.visible')
 
-    //         AccountsPage.getAcountTypesSelectAtSearch().select(randomAccountTypeCaption).then(function () {
-    //             AccountsPage.getAcountTypesSelectAtSearch().find('option:selected').invoke('text')
-    //                 .then((text) => text.trim()).should("equal", randomAccountTypeCaption)
-    //         })
-
-
-    //         AccountsPage.getAddNewAccountButton().click()
-    //         MainMenuPage.getSpinner().should('not.be.visible')
-
-    //         AccountsPage.getAccountTypesSelectAtAddNewAccount().select(randomAccountTypeCaption).then(function () {
-
-    //             AccountsPage.getAccountTypesSelectAtAddNewAccount().find('option:selected').invoke('text')
-    //                 .then((text) => text.trim()).should("equal", randomAccountTypeCaption)
-    //         })
+            AccountsPage.getAcountTypesSelectAtSearch().select(randomAccountTypeCaption).then(function () {
+                AccountsPage.getAcountTypesSelectAtSearch().find('option:selected').invoke('text')
+                    .then((text) => text.trim()).should("equal", randomAccountTypeCaption)
+            })
 
 
-    //         AccountsPage.getPropertyKeySelectFromAddNewAccount().select(randomAccountTypeProperty).then(function () {
+            AccountsPage.getAddNewAccountButton().click()
+            MainMenuPage.getSpinner().should('not.be.visible')
 
-    //             AccountsPage.getPropertyKeySelectFromAddNewAccount().find('option:selected').invoke('text')
-    //                 .then((text) => text.trim()).should("equal", randomAccountTypeProperty)
-    //         })
+            AccountsPage.getAccountTypesSelectAtAddNewAccount().select(randomAccountTypeCaption).then(function () {
 
-    //         AccountsPage.getPropertyValueInput().type('123')
-
-    //         AccountsPage.getTargetAccountFieldsFromAddNewAccount().should('not.be.visible')
+                AccountsPage.getAccountTypesSelectAtAddNewAccount().find('option:selected').invoke('text')
+                    .then((text) => text.trim()).should("equal", randomAccountTypeCaption)
+            })
 
 
-    //     })
-    // })
+            AccountsPage.getPropertyKeySelectFromAddNewAccount().select(randomAccountTypeProperty).then(function () {
+
+                AccountsPage.getPropertyKeySelectFromAddNewAccount().find('option:selected').invoke('text')
+                    .then((text) => text.trim()).should("equal", randomAccountTypeProperty)
+            })
+
+            AccountsPage.getPropertyValueInput().type('123')
+
+            AccountsPage.getTargetAccountFieldsFromAddNewAccount().should('not.be.visible')
+
+
+        })
+    })
 
 
 
