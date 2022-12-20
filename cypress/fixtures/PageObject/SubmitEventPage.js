@@ -139,6 +139,37 @@ class SubmitEvent {
         return cy.xpath("//*[@class='overlay-container']/div/div/div")
     }
 
+    static getErrorMessageForEventType() {
+        return cy.xpath("//div[@class='col-12 col-md-2 ng-star-inserted'][1]/div/div")
+    }
+
+    static getErrorMessageForDomain() {
+        return cy.xpath("//div[@class='col-12 col-md-2']/div/div[@class='error-message ng-star-inserted']")
+
+    }
+
+    static getErrorMessageForEventNote() {
+        return cy.xpath("//div[@class='col-12 col-md-4']/div/div")
+    }
+
+    static getErrorMessageForAmount() {
+        return cy.xpath("//*[@class='display-block ng-star-inserted']/div[1]/div[1]/form//div[@class='error-message ng-star-inserted']")
+    }
+
+    static getTargetAccountInput() {
+        return cy.xpath("//cmp-target-account//tfoot//td[2]/input")
+    }
+
+    static getAmountAtTargetSection()
+    {
+      return cy.xpath("//cmp-target-account//tfoot//td[3]/input")
+    }
+
+    static getAddTargetAccountButton()
+    {
+        return cy.xpath("//cmp-target-account//tfoot//td//button")
+    }
+
 }
 
 module.exports = SubmitEvent
