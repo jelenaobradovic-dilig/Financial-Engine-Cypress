@@ -81,7 +81,7 @@ class AccountsPage {
     }
 
     static selectAccountTypeByNameAtAddNewAccount(accountType) {
-        AccountsPage.getAccountTypesSelectAtAddNewAccount().select(accountType)
+        AccountsPage.getAccountTypesSelectAtAddNewAccount().should('be.visible').select(accountType)
     }
 
 

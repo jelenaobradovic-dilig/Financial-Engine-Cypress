@@ -170,6 +170,12 @@ class SubmitEvent {
         return cy.xpath("//cmp-target-account//tfoot//td//button")
     }
 
+    static getImportFromCsvButton()
+    {
+        //return cy.contains(' Import from CSV ')
+    return cy.xpath("//input[@type='file']")
+    }
+
 }
 
 module.exports = SubmitEvent
