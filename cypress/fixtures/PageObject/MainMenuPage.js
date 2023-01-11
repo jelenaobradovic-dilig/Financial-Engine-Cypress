@@ -8,7 +8,7 @@ class MainMenu {
     }
 
     static getMainMenuAllMembers() {
-        return cy.xpath("//ul[@role='menu']//li")
+        return cy.xpath("//ul[@role='menu']//ul")
     }
 
 

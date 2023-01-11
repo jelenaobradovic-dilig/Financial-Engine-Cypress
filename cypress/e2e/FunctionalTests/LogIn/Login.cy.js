@@ -35,9 +35,12 @@ describe('Log in ', () => {
 
         cy.url().should('eq', fixData.afterLogInUrlForAdmin)
 
-        MainMenuPage.getMainMenuList().should('have.length', 7)
+        MainMenuPage.getMainMenuList().should('have.length', 7).and('have.text',
+        ' Dashboard  Accounts  Account Types  Events  Event Types  Domains  Domains  Settings  Tags  Application settings  User Management  Role Management ')
+       
         
-        MainMenuPage.getMainMenuAllMembers().should('have.length', 10)
+        MainMenuPage.getMainMenuAllMembers().should('have.length', 5).and('have.text',
+        ' Account Types  Event Types  Domains  Tags  Application settings ')
 
     })
 
@@ -51,9 +54,13 @@ describe('Log in ', () => {
 
         cy.url().should('eq', fixData.afterLogInUrlForUser)
 
-        MainMenuPage.getMainMenuList().should('have.length', 4)
+        MainMenuPage.getMainMenuList().should('be.visible').and('have.length', 5)  .and ('have.text',
+        ' Dashboard  Accounts  Account Types  Accounts  Account Balances  Target Account  Events  Event Types  Events  Transactions  Submit Event  Revert Event  Domains  Domains  Domain Balances  Settings  Tags ')
+        
 
-        MainMenuPage.getMainMenuAllMembers().should('have.length', 15)
+        MainMenuPage.getMainMenuAllMembers().should('have.length', 12).and ('have.text',
+        ' Account Types  Accounts  Account Balances  Target Account  Event Types  Events  Transactions  Submit Event  Revert Event  Domains  Domain Balances  Tags ')
+      
 
 
     })
